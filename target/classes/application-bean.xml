@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd"
+
+       default-init-method="initBeanMethod"
+       default-destroy-method="destroyBeanMethod"
+>
+
+    <context:component-scan base-package="net.alex.app.parser"/>
+
+<!--    <context:property-placeholder location="classpath*:my.properties"/>-->
+
+<!--    <bean id="pdfService" class="net.alex.app.parser.service.pdf.impl.PdfProcessService_impl"/>-->
+
+<!-- string to int  todo-->
+<!--    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+<!--        <property name="location">-->
+<!--            <value>property.properties</value>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+
+    <bean id="pdfFacade" class="net.alex.app.parser.facade.impl.PdfFacade_mpl">
+        <property name="defaultPath" value="${file.path}"/>
+        <property name="cutOfLevel" value="${cut.of.level}"/>
+    </bean>
+
+    <!-- Aspect -->
+
+    <!-- Enable @AspectJ annotation support  -->
+    <aop:aspectj-autoproxy />
+
+    <bean id="logAspect" class="net.alex.app.parser.aspect.LoggingAspect" />
+
+    <context:annotation-config />
+</beans>
